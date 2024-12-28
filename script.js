@@ -29,7 +29,7 @@ function playRound() {
     let computerChoice = getComputerChoice();
 
     // console.log(`You chose: ${humanChoice}`);
-    // console.log(`Computer chose: ${computerChoice}`);
+    alert(`Computer chose: ${computerChoice}`);
 
     if (humanChoice == computerChoice) {
         alert("It's a tie!")
@@ -53,9 +53,9 @@ function playGame() {
         playRound();
     }
     if (humanScore == 3) {
-        alert("Good job Mimi")
+        alert("Good job mimi")
     } else {
-        alert("L bozo Mimi ")
+        alert("damnit mimi")
     }
 }
 
