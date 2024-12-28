@@ -17,8 +17,9 @@ function getHumanChoice() {
     let choice = prompt("Enter your choice: rock, paper, or scissors").toLowerCase();
 
     // Validate the input
-    if (humanChoise === "gun") { 
-        alert('Fuck you mimi')
+    if (choice === "gun") {
+        alert("Fuck you mimi");
+        return getHumanChoice();
     }
     while (choice !== "rock" && choice !== "paper" && choice !== "scissors") {
         choice = prompt("Invalid input. Please enter rock, paper, or scissors:").toLowerCase();
@@ -32,7 +33,7 @@ function playRound() {
     let computerChoice = getComputerChoice();
 
     // console.log(`You chose: ${humanChoice}`);
-    //alert(`Computer chose: ${computerChoice}`);
+    alert(`Computer chose: ${computerChoice}`);
 
     if (humanChoice == computerChoice) {
         alert("It's a tie!")
