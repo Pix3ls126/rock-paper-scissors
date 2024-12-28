@@ -33,6 +33,8 @@ function playRound() {
 
     if (humanChoice == computerChoice) {
         alert("It's a tie!")
+    } else if (humanChoise === "gun") { 
+        alert('Fuck you mimi')
     } else if (
         (humanChoice === "rock" && computerChoice === "scissors") || 
         (humanChoice === "paper" && computerChoice === "rock") ||
@@ -55,7 +57,7 @@ function playGame() {
     if (humanScore == 3) {
         alert("Good job mimi")
     } else {
-        alert("damnit mimi")
+        alert("Damn it mimi")
     }
 }
 
