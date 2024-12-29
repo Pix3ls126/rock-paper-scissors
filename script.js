@@ -1,66 +1,53 @@
-let humanScore = 0;
+let playerScore = 0;
 let computerScore = 0;
 
+const playerScoreSpan = document.querySelector("#player-score");
+const computerScoreSpan = document.querySelector("#computer-score");
+const messageDiv = document.querySelector("#message");
+
+// Computer randomly chooses rock, paper, or scissors
 function getComputerChoice() {
-    let random = Math.floor(Math.random() * 3);
-    if (random == 0) {
-        return "rock"
-    } else if (random == 1) {
-        return "paper"
-    } else if (random == 2) {
-        return "scissors"
-    }
-
-}
-    
-function getHumanChoice() {
-    let choice = prompt("Enter your choice: rock, paper, or scissors").toLowerCase();
-
-    // Validate the input
-    if (choice === "gun") {
-        alert("Fuck you mimi");
-        return getHumanChoice();
-    }
-    while (choice !== "rock" && choice !== "paper" && choice !== "scissors") {
-        choice = prompt("Invalid input. Please enter rock, paper, or scissors:").toLowerCase();
-    }
-
-    return choice;
+    const choices = ["rock", "paper", "scissors"];
+    return choices[Math.floor(Math.random() * 3)];
 }
 
-function playRound() {
-    let humanChoice = getHumanChoice();
-    let computerChoice = getComputerChoice();
-
-    // console.log(`You chose: ${humanChoice}`);
-    alert(`Computer chose: ${computerChoice}`);
-
-    if (humanChoice == computerChoice) {
-        alert("It's a tie!")
-    } else if (
-        (humanChoice === "rock" && computerChoice === "scissors") || 
-        (humanChoice === "paper" && computerChoice === "rock") ||
-        (humanChoice === "scissors" && computerChoice === "paper")
+// Determine the winner
+function playRound(playerChoice, computerChoice) {
+    if (playerChoice === computerChoice) {
+        return "It's a tie!";
+    }
+    if (
+        (playerChoice === "rock" && computerChoice === "scissors") ||
+        (playerChoice === "paper" && computerChoice === "rock") ||
+        (playerChoice === "scissors" && computerChoice === "paper")
     ) {
-        alert("You win this round!");
-        humanScore++;
+        playerScore++;
+        return "You win this round!";
     } else {
-        alert("Computer wins this round!");
         computerScore++;
-    }
-    alert(`Score: You ${humanScore} - ${computerScore} Computer`);
-
-}
-
-function playGame() {
-    while (humanScore < 3 && computerScore < 3) {
-        playRound();
-    }
-    if (humanScore == 3) {
-        alert("Good job mimi")
-    } else {
-        alert("Damn it mimi")
+        return "Computer wins this round!";
     }
 }
 
-playGame()
+// Handle button clicks
+document.querySelectorAll(".choice").forEach(button => {
+    button.addEventListener("click", () => {
+        const playerChoice = button.dataset.choice;
+        const computerChoice = getComputerChoice();
+        const resultMessage = playRound(playerChoice, computerChoice);
+
+        // Update UI
+        playerScoreSpan.textContent = playerScore;
+        computerScoreSpan.textContent = computerScore;
+        messageDiv.textContent = `You chose ${playerChoice}. Computer chose ${computerChoice}. ${resultMessage}`;
+
+        // Check for game over
+        if (playerScore === 3 || computerScore === 3) {
+            messageDiv.textContent += ` ${
+                playerScore === 3 ? "Congratulations, you win!" : "Game over, computer wins!"
+            }`;
+            // Disable buttons
+            document.querySelectorAll(".choice").forEach(btn => btn.disabled = true);
+        }
+    });
+});
